@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Carter+One&display=swap");
+
+body {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  color: white;
+  background-color: rgb(10, 10, 10);
+}
+h1 {
+  font-family: "Permanent Marker", cursive;
+  font-size: 84px;
+}
+article {
+  font-family: "Carter One", cursive;
+  padding: 16px;
+}
+section {
+  padding: 8px 0;
+}
+span {
+  display: inline-block;
+}
+#firevoid-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+span {
+  margin: 0px 4px;
+}
+.block-fire {
+  border-bottom: 2px solid orange;
+}
+.block-person {
+  display: inline-block;
+
+  padding: 4px 8px;
+  color: black;
+  background-color: rgb(255, 183, 0);
+  border-radius: 8px;
+}
+.block-fire-from-left {
+  display: inline-block;
+
+  padding: 4px 8px;
+  color: white;
+  background-color: rgb(187, 0, 0);
+  border-radius: 8px;
+}
+.block-fire-from-right {
+  display: inline-block;
+
+  padding: 4px 8px;
+  color: white;
+  background-color: rgb(152, 0, 228);
+  border-radius: 8px;
+}
+.block-heart {
+  display: inline-block;
+
+  padding: 4px 8px;
+  background-color: rgb(255, 127, 127);
+  border-radius: 8px;
+}
+.block-keyboard {
+  display: inline-block;
+
+  padding: 4px 8px;
+  margin: 0;
+  color: white;
+  background-color: rgb(45, 45, 45);
+  border-radius: 8px;
+}
+
+#firevoid-index a {
+  display: inline-block;
+  padding: 18px 64px;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 24px;
+  font-family: "Carter One", cursive;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+#firevoid-index a:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+}

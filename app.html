@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./app.css" />
+    <title>Firevoid</title>
+  </head>
+  <body>
+    <div id="firevoid">
+      <div id="gameinfo">
+        <p>
+          <span><b>STAGE</b></span>
+          <span id="gameinfo-stage">0</span>
+        </p>
+        <p>
+          <span><b>LIFE</b></span>
+          <span id="gameinfo-life">5</span>
+        </p>
+        <p>
+          <span><b>SCORE</b></span>
+          <span id="gameinfo-score">0</span>
+        </p>
+      </div>
+
+      <table id="gameboard"></table>
+
+      <div id="touchkey" style="text-align: center">
+        <div id="touchkey-left" class="touchkey-pair">
+          <button id="touchkey-f">F</button>
+          <button id="touchkey-v">V</button>
+        </div>
+        <div id="touchkey-right">
+          <button id="touchkey-j">J</button>
+          <button id="touchkey-n">N</button>
+        </div>
+      </div>
+
+      <div id="modal" class="show">
+        <div id="background" class="show"></div>
+        <div id="modal-gamestart" class="modal-content show">
+          <p>Press Any Key or Click To Start</p>
+        </div>
+        <div id="modal-pause" class="modal-content">
+          <p>Press Any Key or Click To Continue</p>
+          <a href="./index.html">Back To Title</a>
+        </div>
+        <div id="modal-gameover" class="modal-content">
+          <h2>GAME OVER</h2>
+          <p>
+            <span>score : </span>
+            <span id="gameover-score" class="gameover-var"></span>
+          </p>
+          <nav>
+            <a id="gameover-restart-btn">Restart</a>
+            <a href="./index.html">Back To Title</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="module" src="./app.js"></script>
+</html>

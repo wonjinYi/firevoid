@@ -1,5 +1,8 @@
 function updateGameInfo(gameinfo, $gameinfoBoard) {
-  $gameinfoBoard.life.textContent = gameinfo.life;
+  $gameinfoBoard.stage.textContent = gameinfo.stage;
+  $gameinfoBoard.life.textContent = `${gameinfo.life}  ${"❤️".repeat(
+    gameinfo.life
+  )}`;
   $gameinfoBoard.score.textContent = gameinfo.score;
 }
 
@@ -21,12 +24,12 @@ function updateFireCoord(
   const ry = personCoord[1].y; // right Person Y
 
   // remove outdated fire on gameboard
-  fire.left.forEach(({ x, y }) =>
-    gameboard[y][x].classList.remove("fire-from-left")
-  );
-  fire.right.forEach(({ x, y }) =>
-    gameboard[y][x].classList.remove("fire-from-right")
-  );
+  fire.left.forEach(({ x, y }) => {
+    gameboard[y][x].classList.remove("fire-from-left");
+  });
+  fire.right.forEach(({ x, y }) => {
+    gameboard[y][x].classList.remove("fire-from-right");
+  });
 
   // updatde coords.
   fire.left.forEach((el) => el.x++);
@@ -73,12 +76,12 @@ function updateFireCoord(
   });
 
   // create fire on gameboard visually
-  fire.left.forEach(({ x, y }) =>
-    gameboard[y][x].classList.add("fire-from-left")
-  );
-  fire.right.forEach(({ x, y }) =>
-    gameboard[y][x].classList.add("fire-from-right")
-  );
+  fire.left.forEach(({ x, y }) => {
+    gameboard[y][x].classList.add("fire-from-left");
+  });
+  fire.right.forEach(({ x, y }) => {
+    gameboard[y][x].classList.add("fire-from-right");
+  });
 }
 
 export { updateGameInfo, updateFireCoord };
