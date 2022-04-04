@@ -54,9 +54,11 @@ function updateFireCoord(
     if ((x == lx && y == ly) || (x == rx && y == ry)) {
       fire.left.splice(index, 1);
       gameinfo.life--;
+      $modal.container.classList.add("show");
       $modal.background.classList.add("show");
       $modal.background.classList.add("collide-from-left");
       setTimeout(() => {
+        $modal.container.classList.remove("show");
         $modal.background.classList.remove("show");
         $modal.background.classList.remove("collide-from-left");
       }, 100);
