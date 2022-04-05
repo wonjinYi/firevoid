@@ -55,6 +55,7 @@ let gamespeed = {};
 let fire = {};
 let gameinfo = {};
 let loopArr = [];
+let isPaused = false;
 
 let sfx = {
   stageup: new Audio(),
@@ -187,10 +188,11 @@ function activateLoop() {
 
       const move = gamespeed.move;
       move.current >= move.lowest &&
-        (move.current = move.initial - move.subtractPerStage);
+        (move.current = move.initial - move.subtractPerStage * gameinfo.stage);
       const create = gamespeed.create;
       create.current >= create.lowest &&
-        (create.current = create.initial - create.subtractPerStage);
+        (create.current =
+          create.initial - create.subtractPerStage * gameinfo.stage);
       console.log(gameinfo.stage, move.current, create.current);
 
       deactivateLoop();
@@ -204,7 +206,7 @@ function activateLoop() {
           elements: [$gameinfoBoard.stage],
           className: "stageup",
         });
-        activateLoop();
+        !isPaused && activateLoop();
       }, 1000);
     } else if (gameinfo.score % gamespeed.stageInterval != 0) {
       gamespeed.stageupFlag = true;
@@ -224,6 +226,7 @@ function deactivateLoop() {
 }
 
 function pauseLoop() {
+  isPaused = true;
   deactivateLoop(loopArr);
   addClassList({
     elements: [$modal.container, $modal.background, $modal.pause],
@@ -231,6 +234,7 @@ function pauseLoop() {
   });
 
   function continueGame() {
+    isPaused = false;
     window.onclick = null;
     window.onkeydown = null;
     removeClassList({
