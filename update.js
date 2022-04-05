@@ -11,11 +11,9 @@ function updateFireCoord(
   personCoord,
   gameboard,
   fire,
-  gameinfo
+  gameinfo,
+  $modal
 ) {
-  const $modal = {
-    background: document.getElementById("background"),
-  };
   const w = GAMEBOARD_INIT_SIZE.width;
   const h = GAMEBOARD_INIT_SIZE.height;
   const lx = personCoord[0].x; // left Person X
@@ -68,9 +66,11 @@ function updateFireCoord(
     if ((x == lx && y == ly) || (x == rx && y == ry)) {
       fire.right.splice(index, 1);
       gameinfo.life--;
+      $modal.container.classList.add("show");
       $modal.background.classList.add("show");
       $modal.background.classList.add("collide-from-right");
       setTimeout(() => {
+        $modal.container.classList.remove("show");
         $modal.background.classList.remove("show");
         $modal.background.classList.remove("collide-from-right");
       }, 100);

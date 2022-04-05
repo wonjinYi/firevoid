@@ -1,6 +1,9 @@
 # firevoid
 
+## [Play now](https://wonjinyi.github.io/firevoid)
+
 Web Minigame (Sejong Univ. Web Programming - A part of Group Project)
+![](./img/playingAnimation_forPC.gif)
 
 ## Idea Note
 

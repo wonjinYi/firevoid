@@ -48,6 +48,29 @@
   background-color: rgb(40, 40, 40);
   border-radius: 8px;
 }
+
+#firevoid #gameinfo #pause-btn {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  background-color: rgb(160, 0, 0);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+#firevoid #gameinfo #pause-btn:hover {
+  background-color: rgba(160, 0, 0, 0.5);
+  transition: all 0.5s;
+}
+
+@keyframes blink-effect {
+  50% {
+    opacity: 0;
+  }
+}
+.stageup {
+  animation: blink-effect 0.25s step-end infinite;
+}
+
 /* gameboard */
 #firevoid td {
   width: 32px;
@@ -182,9 +205,7 @@
   #firevoid #gameinfo p {
     margin: 0;
   }
-  /* #firevoid #gameboard {
-    flex: 1;
-  } */
+
   #touchkey {
     flex: 1;
     display: flex;

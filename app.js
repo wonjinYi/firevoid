@@ -2,6 +2,7 @@
 import init from "./init.js";
 import { updateFireCoord, updateGameInfo } from "./update.js";
 import createFire from "./createFire.js";
+import { addClassList, removeClassList } from "./classListManager.js";
 
 // Predifined Constants
 const INIT_VALUE = {
@@ -32,14 +33,16 @@ const INIT_VALUE = {
     stageupFlag: true,
     stageInterval: 10,
     create: {
-      initial: 1000, // initail speed
-      //increaseRatio: 0.95, // Number to be multiplied by speed per stage
-      current: 1000,
+      initial: 1200, // initail speed (ms)
+      subtractPerStage: 70, // The number subtracted from the speed per stage (ms)
+      current: 1200, // current speed (ms)
+      lowest: 430,
     },
     move: {
-      initial: 100,
-      //increaseRatio: 0.95,
-      current: 100,
+      initial: 200,
+      subtractPerStage: 12,
+      current: 200,
+      lowest: 80,
     },
   },
 };
@@ -53,16 +56,6 @@ let fire = {};
 let gameinfo = {};
 let loopArr = [];
 
-const VARS = {
-  gameboardSize,
-  gameboard,
-  personCoord,
-  gamespeed,
-  fire,
-  gameinfo,
-  loopArr,
-};
-
 // elements
 const $modal = {
   container: document.getElementById("modal"),
@@ -72,12 +65,6 @@ const $modal = {
   gameover: document.getElementById("modal-gameover"),
   gameoverScore: document.getElementById("gameover-score"),
   gameoverRestartBtn: document.getElementById("gameover-restart-btn"),
-};
-const $touchkey = {
-  F: document.getElementById("touchkey-f"),
-  V: document.getElementById("touchkey-v"),
-  J: document.getElementById("touchkey-j"),
-  N: document.getElementById("touchkey-n"),
 };
 const $gameinfoBoard = {
   stage: document.getElementById("gameinfo-stage"),
@@ -113,6 +100,8 @@ function handleTouchkeyDown(e) {
   if (rawKey == "J" || rawKey == "N" || rawKey == "F" || rawKey == "V") {
     const key = rawKey.toLowerCase();
     handleKeydown({ key });
+  } else if (rawKey === "PAUSE (ESC/P)") {
+    handleKeydown({ key: "P" });
   }
 }
 
@@ -121,7 +110,14 @@ function activateLoop() {
   window.onclick = handleTouchkeyDown;
 
   const updateLoop = setInterval(() => {
-    updateFireCoord(gameboardSize, personCoord, gameboard, fire, gameinfo);
+    updateFireCoord(
+      gameboardSize,
+      personCoord,
+      gameboard,
+      fire,
+      gameinfo,
+      $modal
+    );
     updateGameInfo(gameinfo, $gameinfoBoard);
   }, gamespeed.move.current);
 
@@ -134,17 +130,19 @@ function activateLoop() {
     if (gameinfo.life <= 0) {
       deactivateLoop();
       setTimeout(() => {
-        $modal.container.classList.add("show");
-        $modal.background.classList.add("show");
-        $modal.gameover.classList.add("show");
+        addClassList({
+          elements: [$modal.container, $modal.background, $modal.gameover],
+          className: "show",
+        });
         $modal.gameoverScore.textContent = gameinfo.score;
         $modal.gameoverRestartBtn.onclick = () => {
           window.onclick = null;
           window.onkeydown = null;
-          $modal.gameover.classList.remove("show");
-
-          $modal.background.classList.add("show");
-          $modal.gamestart.classList.add("show");
+          removeClassList({ elements: [$modal.gameover], className: "show" });
+          addClassList({
+            elements: [$modal.background, $modal.gamestart],
+            className: "show",
+          });
           init(
             INIT_VALUE,
             gameboardSize,
@@ -155,22 +153,18 @@ function activateLoop() {
             gameinfo,
             loopArr
           );
-          window.onmousedown = () => {
+
+          function restartGame() {
             window.onmousedown = null;
             window.onkeydown = null;
-            $modal.container.classList.remove("show");
-            $modal.background.classList.remove("show");
-            $modal.gamestart.classList.remove("show");
+            removeClassList({
+              elements: [$modal.container, $modal.background, $modal.gamestart],
+              className: "show",
+            });
             activateLoop();
-          };
-          window.onkeydown = () => {
-            window.onmousedown = null;
-            window.onkeydown = null;
-            $modal.container.classList.remove("show");
-            $modal.background.classList.remove("show");
-            $modal.gamestart.classList.remove("show");
-            activateLoop();
-          };
+          }
+          window.onmousedown = restartGame;
+          window.onkeydown = restartGame;
         };
       }, 1000);
     }
@@ -183,14 +177,27 @@ function activateLoop() {
       gamespeed.stageupFlag = false;
       gameinfo.stage++;
 
-      // const move = gamespeed.move;
-      // move.current = parseInt(move.current * move.increaseRatio);
+      const move = gamespeed.move;
+      move.current >= move.lowest &&
+        (move.current = move.initial - move.subtractPerStage);
       const create = gamespeed.create;
-      create.current > 400 && (create.current -= 50);
+      create.current >= create.lowest &&
+        (create.current = create.initial - create.subtractPerStage);
+      console.log(gameinfo.stage, move.current, create.current);
 
       deactivateLoop();
-      activateLoop();
-    } else if (gameinfo.score % 10 != 0) {
+      addClassList({ elements: [$gameinfoBoard.stage], className: "stageup" });
+      window.onkeydown = handleKeydown;
+      window.onclick = handleTouchkeyDown;
+
+      setTimeout(() => {
+        removeClassList({
+          elements: [$gameinfoBoard.stage],
+          className: "stageup",
+        });
+        activateLoop();
+      }, 1000);
+    } else if (gameinfo.score % gamespeed.stageInterval != 0) {
       gamespeed.stageupFlag = true;
     }
   }, 100);
@@ -209,28 +216,22 @@ function deactivateLoop() {
 
 function pauseLoop() {
   deactivateLoop(loopArr);
-  $modal.container.classList.add("show");
-  $modal.background.classList.add("show");
-  $modal.pause.classList.add("show");
+  addClassList({
+    elements: [$modal.container, $modal.background, $modal.pause],
+    className: "show",
+  });
 
-  window.onmousedown = () => {
-    window.onmousedown = null;
+  function continueGame() {
+    window.onclick = null;
     window.onkeydown = null;
-    $modal.container.classList.remove("show");
-    $modal.background.classList.remove("show");
-    $modal.pause.classList.remove("show");
+    removeClassList({
+      elements: [$modal.container, $modal.background, $modal.pause],
+      className: "show",
+    });
     activateLoop();
-  };
-
-  window.onkeydown = () => {
-    window.onmousedown = null;
-    window.onkeydown = null;
-    $modal.container.classList.remove("show");
-    $modal.background.classList.remove("show");
-    $modal.pause.classList.remove("show");
-
-    activateLoop();
-  };
+  }
+  window.onclick = continueGame;
+  window.onkeydown = continueGame;
 }
 
 /////////////////////////////////////////////////
@@ -246,19 +247,15 @@ init(
   loopArr
 );
 
-window.onmousedown = () => {
+function startGame() {
   window.onmousedown = null;
   window.onkeydown = null;
-  $modal.container.classList.remove("show");
-  $modal.background.classList.remove("show");
-  $modal.gamestart.classList.remove("show");
+
+  removeClassList({
+    elements: [$modal.container, $modal.background, $modal.gamestart],
+    className: "show",
+  });
   activateLoop();
-};
-window.onkeydown = () => {
-  window.onmousedown = null;
-  window.onkeydown = null;
-  $modal.container.classList.remove("show");
-  $modal.background.classList.remove("show");
-  $modal.gamestart.classList.remove("show");
-  activateLoop();
-};
+}
+window.onmousedown = startGame;
+window.onkeydown = startGame;
