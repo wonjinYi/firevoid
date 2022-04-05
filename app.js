@@ -56,6 +56,13 @@ let fire = {};
 let gameinfo = {};
 let loopArr = [];
 
+let sfx = {
+  stageup: new Audio(),
+  gameover: new Audio(),
+};
+sfx.stageup.src = "./sound/mixkit-winning-chimes-2015.wav";
+sfx.gameover.src = "./sound/mixkit-arcade-fast-game-over-233.wav";
+
 // elements
 const $modal = {
   container: document.getElementById("modal"),
@@ -135,6 +142,7 @@ function activateLoop() {
           className: "show",
         });
         $modal.gameoverScore.textContent = gameinfo.score;
+        sfx.gameover.play();
         $modal.gameoverRestartBtn.onclick = () => {
           window.onclick = null;
           window.onkeydown = null;
@@ -190,6 +198,7 @@ function activateLoop() {
       window.onkeydown = handleKeydown;
       window.onclick = handleTouchkeyDown;
 
+      sfx.stageup.play();
       setTimeout(() => {
         removeClassList({
           elements: [$gameinfoBoard.stage],

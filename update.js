@@ -1,3 +1,6 @@
+const collisionSFX = new Audio();
+collisionSFX.src = "./sound/mixkit-arcade-video-game-explosion-2810.wav";
+
 function updateGameInfo(gameinfo, $gameinfoBoard) {
   $gameinfoBoard.stage.textContent = gameinfo.stage;
   $gameinfoBoard.life.textContent = `${gameinfo.life}  ${"❤️".repeat(
@@ -55,6 +58,8 @@ function updateFireCoord(
       $modal.container.classList.add("show");
       $modal.background.classList.add("show");
       $modal.background.classList.add("collide-from-left");
+      collisionSFX.currentTime = 0;
+      collisionSFX.play();
       setTimeout(() => {
         $modal.container.classList.remove("show");
         $modal.background.classList.remove("show");
@@ -69,6 +74,8 @@ function updateFireCoord(
       $modal.container.classList.add("show");
       $modal.background.classList.add("show");
       $modal.background.classList.add("collide-from-right");
+      collisionSFX.currentTime = 0;
+      collisionSFX.play();
       setTimeout(() => {
         $modal.container.classList.remove("show");
         $modal.background.classList.remove("show");

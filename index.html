@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
+
     <title>Firevoid</title>
   </head>
   <body>
@@ -12,6 +13,7 @@
         <img src="./img/playingAnimation_forPC.gif" id="bg-for-pc" />
         <img src="./img/playingAnimation_forMobile.gif" id="bg-for-mobile" />
       </div>
+
       <div id="firevoid-index-content">
         <h1>🔥Firevoid</h1>
         <a href="./app.html">Start</a>
@@ -50,6 +52,31 @@
           </section>
         </article>
       </div>
+
+      <audio
+        controls
+        autoplay
+        loop
+        id="bgm"
+        style="
+          position: absolute;
+          left: 8px;
+          top: 8px;
+          width: 200px;
+          height: 32px;
+        "
+      >
+        <source
+          src="./sound/Robin Hustin - On Fire [NCS Release].mp3"
+          type="audio/mp3"
+        />
+      </audio>
     </main>
   </body>
+  <script>
+    // const bgm = document.getElementById("bgm");
+    // window.onmousemove = () => {
+    //   bgm.play();
+    // };
+  </script>
 </html>
