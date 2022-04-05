@@ -12,7 +12,7 @@ const INIT_VALUE = {
   },
   personCoord: [
     {
-      x: 9, // 10th
+      x: 10, // 10th
       y: 1, // 2nd
     },
     {
