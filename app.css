@@ -190,7 +190,7 @@
   display: none;
 }
 
-@media screen and (max-width: 900px) {
+@media screen {
   #modal nav a {
     display: block;
   }
