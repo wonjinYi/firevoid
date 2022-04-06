@@ -115,7 +115,8 @@ function handleTouchkeyDown(e) {
 
 function activateLoop() {
   window.onkeydown = handleKeydown;
-  window.onclick = handleTouchkeyDown;
+  window.onmousedown = handleTouchkeyDown;
+  window.ontouchstart = handleTouchkeyDown;
 
   const updateLoop = setInterval(() => {
     updateFireCoord(
@@ -145,7 +146,8 @@ function activateLoop() {
         $modal.gameoverScore.textContent = gameinfo.score;
         sfx.gameover.play();
         $modal.gameoverRestartBtn.onclick = () => {
-          window.onclick = null;
+          window.onmousedown = null;
+          window.ontouchstart = null;
           window.onkeydown = null;
           removeClassList({ elements: [$modal.gameover], className: "show" });
           addClassList({
@@ -173,6 +175,7 @@ function activateLoop() {
             activateLoop();
           }
           window.onmousedown = restartGame;
+          window.ontouchstart = restartGame;
           window.onkeydown = restartGame;
         };
       }, 1000);
@@ -198,7 +201,8 @@ function activateLoop() {
       deactivateLoop();
       addClassList({ elements: [$gameinfoBoard.stage], className: "stageup" });
       window.onkeydown = handleKeydown;
-      window.onclick = handleTouchkeyDown;
+      window.onmousedown = handleTouchkeyDown;
+      window.ontouchstart = handleTouchkeyDown;
 
       sfx.stageup.play();
       setTimeout(() => {
@@ -220,7 +224,8 @@ function activateLoop() {
 
 function deactivateLoop() {
   window.onkeydown = null;
-  window.onclick = null;
+  window.onmousedown = null;
+  window.ontouchstart = null;
   loopArr.forEach((loop) => clearInterval(loop));
   loopArr = [];
 }
@@ -235,7 +240,8 @@ function pauseLoop() {
 
   function continueGame() {
     isPaused = false;
-    window.onclick = null;
+    window.onmousedown = null;
+    window.ontouchstart = null;
     window.onkeydown = null;
     removeClassList({
       elements: [$modal.container, $modal.background, $modal.pause],
@@ -243,7 +249,8 @@ function pauseLoop() {
     });
     activateLoop();
   }
-  window.onclick = continueGame;
+  window.onmousedown = continueGame;
+  window.ontouchstart = continueGame;
   window.onkeydown = continueGame;
 }
 
@@ -261,7 +268,8 @@ init(
 );
 
 function startGame() {
-  window.onmousedown = null;
+  window.onclick = null;
+  window.ontouchstart = null;
   window.onkeydown = null;
 
   removeClassList({
@@ -271,4 +279,5 @@ function startGame() {
   activateLoop();
 }
 window.onmousedown = startGame;
+window.ontouchstart = startGame;
 window.onkeydown = startGame;
