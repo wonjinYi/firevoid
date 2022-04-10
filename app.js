@@ -70,6 +70,7 @@ const $modal = {
   background: document.getElementById("background"),
   gamestart: document.getElementById("modal-gamestart"),
   pause: document.getElementById("modal-pause"),
+  pauseBackToTitleBtn: document.getElementById("modal-pause-backtotitle-btn"),
   gameover: document.getElementById("modal-gameover"),
   gameoverScore: document.getElementById("gameover-score"),
   gameoverRestartBtn: document.getElementById("gameover-restart-btn"),
@@ -249,8 +250,12 @@ function pauseLoop() {
     });
     activateLoop();
   }
-  window.onmousedown = continueGame;
-  window.ontouchstart = continueGame;
+  window.onmousedown = (e) => {
+    if (e.target != $modal.pauseBackToTitleBtn) continueGame();
+  };
+  window.ontouchstart = (e) => {
+    if (e.target != $modal.pauseBackToTitleBtn) continueGame();
+  };
   window.onkeydown = continueGame;
 }
 
