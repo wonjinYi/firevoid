@@ -1,28 +1,58 @@
-# firevoid
+# Firevoid
 
-## [Play now](https://wonjinyi.github.io/firevoid)
+### Play Firevoid
 
-Web Minigame (Sejong Univ. Web Programming - A part of Group Project)
+[Click to Play](https://wonjinyi.github.io/firevoid)
+
+### What is this
+
+It is Web Minigame. (Sejong Univ. Web Programming Group Project)
+
+### Components
+
+There are 2 Type of blocks
+
+- **person** : yellow
+- **fire** : red, purple
+
+### Rule
+
+- Gameover : Person should avoid fire blocks. When person collides with fire, player will lose 1 💖. If player loses all 💖, it is gameover.
+- Get score : If a fire block goes out of the game board, player gets 1 score.
+- Stage up : Whenever player gets 10 score, player moves on to the next stage. The higher the stage, the faster the block movement.
+
 ![](./img/playingAnimation_forPC.gif)
 
-## Idea Note
+### Resources
 
-![](./img/readme/ideanote_001.jpg)
-![](./img/readme/ideanote_002.jpg)
-![](./img/readme/ideanote_003.jpg)
-![](./img/readme/ideanote_004.jpg)
-![](./img/readme/ideanote_005.jpg)
-![](./img/readme/ideanote_006.jpg)
-![](./img/readme/ideanote_007.jpg)
-
-## Resources
-
-#### BGM
+##### BGM
 
 - On Fire by Robin Hustin [from NCS](https://ncs.io/OnFire)
 
-#### SFX
+##### SFX
 
 - Arcade video game explosion [from mixkit.co](https://mixkit.co/free-sound-effects/crash/)
 - Arcade fast game over [from mixkit.co](https://mixkit.co/free-sound-effects/game-over/)
 - Winning chimes [from mixkit.co](https://mixkit.co/free-sound-effects/win/)
+
+## Idea Note And Simple Report
+
+Google Presentation [Link](https://docs.google.com/presentation/d/1BSQOfw5ZjulpScQxDMcZRYsDlyMiVe5bwuVMyYaVRyY/edit?usp=sharing)
+
+![](./img/readme/Firevoid-01.jpg)
+![](./img/readme/Firevoid-02.jpg)
+![](./img/readme/Firevoid-03.jpg)
+![](./img/readme/Firevoid-04.jpg)
+![](./img/readme/Firevoid-05.jpg)
+![](./img/readme/Firevoid-06.jpg)
+![](./img/readme/Firevoid-07.jpg)
+![](./img/readme/Firevoid-08.jpg)
+![](./img/readme/Firevoid-09.jpg)
+![](./img/readme/Firevoid-10.jpg)
+![](./img/readme/Firevoid-11.jpg)
+![](./img/readme/Firevoid-12.jpg)
+![](./img/readme/Firevoid-13.jpg)
+![](./img/readme/Firevoid-14.jpg)
+![](./img/readme/Firevoid-15.jpg)
+![](./img/readme/Firevoid-16.jpg)
+![](./img/readme/Firevoid-17.jpg)
