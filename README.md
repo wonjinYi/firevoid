@@ -1,5 +1,7 @@
 # Firevoid
 
+![](./img/etc/firevoid_logo_01.jpg)
+
 ### Play Firevoid
 
 [Click to Play](https://wonjinyi.github.io/firevoid)
