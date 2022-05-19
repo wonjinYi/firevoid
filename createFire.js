@@ -1,6 +1,7 @@
-import { getRandInt, pickRandOne } from "./random.js";
+//import { getRandInt, pickRandOne } from "./random.js";
 
-export default function createFire(GAMEBOARD_INIT_SIZE, gameboard, fire) {
+//export default
+function createFire(GAMEBOARD_INIT_SIZE, gameboard, fire) {
   const w = GAMEBOARD_INIT_SIZE.width;
   const h = GAMEBOARD_INIT_SIZE.height;
 

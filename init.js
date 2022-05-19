@@ -1,4 +1,5 @@
-export default function init(
+//export default
+function init(
   INIT_VALUE,
   gameboardSize,
   gameboard,
@@ -29,10 +30,8 @@ export default function init(
   $gameboardElement.innerHTML = "";
 
   const tr = document.createElement("tr");
-  for (let i = 0; i < gameboardSize.width; i++)
-    tr.appendChild(document.createElement("td"));
-  for (let i = 0; i < gameboardSize.height; i++)
-    $gameboardElement.appendChild(tr.cloneNode(true));
+  for (let i = 0; i < gameboardSize.width; i++) tr.appendChild(document.createElement("td"));
+  for (let i = 0; i < gameboardSize.height; i++) $gameboardElement.appendChild(tr.cloneNode(true));
 
   // save $gameboardElemen's cells to gameboard[]
   const rows = $gameboardElement.getElementsByTagName("tr");

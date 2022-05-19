@@ -1,8 +1,8 @@
 // import
-import init from "./init.js";
-import { updateFireCoord, updateGameInfo } from "./update.js";
-import createFire from "./createFire.js";
-import { addClassList, removeClassList } from "./classListManager.js";
+// import init from "./init.js";
+// import { updateFireCoord, updateGameInfo } from "./update.js";
+// import createFire from "./createFire.js";
+// import { addClassList, removeClassList } from "./classListManager.js";
 
 // Predifined Constants
 const INIT_VALUE = {
@@ -22,7 +22,7 @@ const INIT_VALUE = {
   ],
   gameinfo: {
     stage: 0,
-    life: 1,
+    life: 5,
     score: 0,
   },
   fire: {

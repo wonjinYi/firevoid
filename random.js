@@ -6,4 +6,4 @@ function pickRandOne(arr) {
   return arr[getRandInt(0, arr.length - 1)];
 }
 
-export { getRandInt, pickRandOne };
+//export { getRandInt, pickRandOne };

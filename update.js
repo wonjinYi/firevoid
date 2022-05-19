@@ -3,20 +3,11 @@ collisionSFX.src = "./sound/mixkit-arcade-video-game-explosion-2810.wav";
 
 function updateGameInfo(gameinfo, $gameinfoBoard) {
   $gameinfoBoard.stage.textContent = gameinfo.stage;
-  $gameinfoBoard.life.textContent = `${gameinfo.life}  ${"❤️".repeat(
-    gameinfo.life
-  )}`;
+  $gameinfoBoard.life.textContent = `${gameinfo.life}  ${"❤️".repeat(gameinfo.life)}`;
   $gameinfoBoard.score.textContent = gameinfo.score;
 }
 
-function updateFireCoord(
-  GAMEBOARD_INIT_SIZE,
-  personCoord,
-  gameboard,
-  fire,
-  gameinfo,
-  $modal
-) {
+function updateFireCoord(GAMEBOARD_INIT_SIZE, personCoord, gameboard, fire, gameinfo, $modal) {
   const w = GAMEBOARD_INIT_SIZE.width;
   const h = GAMEBOARD_INIT_SIZE.height;
   const lx = personCoord[0].x; // left Person X
@@ -93,4 +84,4 @@ function updateFireCoord(
   });
 }
 
-export { updateGameInfo, updateFireCoord };
+//export { updateGameInfo, updateFireCoord };
