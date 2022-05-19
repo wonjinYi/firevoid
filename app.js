@@ -22,7 +22,7 @@ const INIT_VALUE = {
   ],
   gameinfo: {
     stage: 0,
-    life: 5,
+    life: 1,
     score: 0,
   },
   fire: {
@@ -74,6 +74,9 @@ const $modal = {
   gameover: document.getElementById("modal-gameover"),
   gameoverScore: document.getElementById("gameover-score"),
   gameoverRestartBtn: document.getElementById("gameover-restart-btn"),
+  gameoverSubmitScoreBtn: document.getElementById("gameover-submitscore-btn"),
+  gameoverSubmitScoreInput: document.getElementById("gameover-submitscore-input"),
+  gameoverSubmitScoreText: document.getElementById("gameover-submitscore-text"),
 };
 const $gameinfoBoard = {
   stage: document.getElementById("gameinfo-stage"),
@@ -89,14 +92,10 @@ function handleKeydown(e) {
     gameboard[y][x].textContent = "";
   });
 
-  if ((e.key === "f" || e.key === "F") && personCoord[0].y != 0)
-    personCoord[0].y--;
-  else if ((e.key === "v" || e.key === "V") && personCoord[0].y != 2)
-    personCoord[0].y++;
-  else if ((e.key === "j" || e.key === "J") && personCoord[1].y != 0)
-    personCoord[1].y--;
-  else if ((e.key === "n" || e.key === "N") && personCoord[1].y != 2)
-    personCoord[1].y++;
+  if ((e.key === "f" || e.key === "F") && personCoord[0].y != 0) personCoord[0].y--;
+  else if ((e.key === "v" || e.key === "V") && personCoord[0].y != 2) personCoord[0].y++;
+  else if ((e.key === "j" || e.key === "J") && personCoord[1].y != 0) personCoord[1].y--;
+  else if ((e.key === "n" || e.key === "N") && personCoord[1].y != 2) personCoord[1].y++;
   else if (e.key === "Escape" || e.key === "P" || e.key === "p") pauseLoop();
 
   personCoord.forEach(({ x, y }) => {
@@ -120,14 +119,7 @@ function activateLoop() {
   window.ontouchstart = handleTouchkeyDown;
 
   const updateLoop = setInterval(() => {
-    updateFireCoord(
-      gameboardSize,
-      personCoord,
-      gameboard,
-      fire,
-      gameinfo,
-      $modal
-    );
+    updateFireCoord(gameboardSize, personCoord, gameboard, fire, gameinfo, $modal);
     updateGameInfo(gameinfo, $gameinfoBoard);
   }, gamespeed.move.current);
 
@@ -140,12 +132,43 @@ function activateLoop() {
     if (gameinfo.life <= 0) {
       deactivateLoop();
       setTimeout(() => {
+        $modal.gameoverSubmitScoreText.textContent = "";
+        $modal.gameoverSubmitScoreText.style.color = "";
+
         addClassList({
           elements: [$modal.container, $modal.background, $modal.gameover],
           className: "show",
         });
         $modal.gameoverScore.textContent = gameinfo.score;
         sfx.gameover.play();
+
+        // handle score submit to ranking server.
+        $modal.gameoverSubmitScoreBtn.onclick = async () => {
+          let username = $modal.gameoverSubmitScoreInput.value;
+          username = username.trim();
+          if (username == false) {
+            alert("User name is empty! Please fill in the text box.");
+            return;
+          }
+
+          const reqData = {
+            gamename: "firevoid",
+            username: username,
+            score: gameinfo.score,
+          };
+
+          // start submitting process
+          $modal.gameoverSubmitScoreText.textContent = "⏳ Please Wait...";
+          $modal.gameoverSubmitScoreText.style.color = "orange";
+
+          const res = await postData(reqData);
+
+          // fisish submitting process.
+          $modal.gameoverSubmitScoreText.textContent = "✅ Submitted successfully";
+          $modal.gameoverSubmitScoreText.style.color = "green";
+        };
+
+        // handle restart game.
         $modal.gameoverRestartBtn.onclick = () => {
           window.onmousedown = null;
           window.ontouchstart = null;
@@ -183,10 +206,7 @@ function activateLoop() {
     }
 
     // next stage
-    if (
-      gameinfo.score % gamespeed.stageInterval == 0 &&
-      gamespeed.stageupFlag
-    ) {
+    if (gameinfo.score % gamespeed.stageInterval == 0 && gamespeed.stageupFlag) {
       gamespeed.stageupFlag = false;
       gameinfo.stage++;
 
@@ -195,8 +215,7 @@ function activateLoop() {
         (move.current = move.initial - move.subtractPerStage * gameinfo.stage);
       const create = gamespeed.create;
       create.current >= create.lowest &&
-        (create.current =
-          create.initial - create.subtractPerStage * gameinfo.stage);
+        (create.current = create.initial - create.subtractPerStage * gameinfo.stage);
       console.log(gameinfo.stage, move.current, create.current);
 
       deactivateLoop();
@@ -260,17 +279,20 @@ function pauseLoop() {
 }
 
 /////////////////////////////////////////////////
+async function postData(data) {
+  const url =
+    "https://script.google.com/macros/s/AKfycbzDAyYKPlOQt_fGUuj7o4Pn1DSGAYbPVMv313_Si8cG_vsbIMCAx4TaE_YZzv2McSG4JQ/exec";
+  let res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 
-init(
-  INIT_VALUE,
-  gameboardSize,
-  gameboard,
-  personCoord,
-  gamespeed,
-  fire,
-  gameinfo,
-  loopArr
-);
+  return res.json();
+}
+
+/////////////////////////////////////////////////
+
+init(INIT_VALUE, gameboardSize, gameboard, personCoord, gamespeed, fire, gameinfo, loopArr);
 
 function startGame() {
   window.onclick = null;

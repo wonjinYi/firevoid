@@ -17,18 +17,9 @@
         autoplay
         loop
         id="bgm"
-        style="
-          position: absolute;
-          left: 8px;
-          top: 8px;
-          width: 200px;
-          height: 32px;
-        "
+        style="position: absolute; left: 8px; top: 8px; width: 200px; height: 32px"
       >
-        <source
-          src="./sound/Robin Hustin - On Fire [NCS Release].mp3"
-          type="audio/mp3"
-        />
+        <source src="./sound/Robin Hustin - On Fire [NCS Release].mp3" type="audio/mp3" />
       </audio>
 
       <div id="gameinfo">
@@ -67,9 +58,7 @@
         </div>
         <div id="modal-pause" class="modal-content">
           <p>Press Any Key or Click To Continue</p>
-          <a id="modal-pause-backtotitle-btn" href="./index.html"
-            >Back To Title</a
-          >
+          <a id="modal-pause-backtotitle-btn" href="./index.html">Back To Title</a>
         </div>
         <div id="modal-gameover" class="modal-content">
           <h2>GAME OVER</h2>
@@ -77,6 +66,13 @@
             <span>score : </span>
             <span id="gameover-score" class="gameover-var"></span>
           </p>
+          <div style="text-align: center">
+            <br />
+            <p>Submit your score on the score-board</p>
+            <input id="gameover-submitscore-input" type="text" placeholder="Write your name here" />
+            <button id="gameover-submitscore-btn">Submit</button>
+            <p id="gameover-submitscore-text">aaaa</p>
+          </div>
           <nav>
             <a id="gameover-restart-btn">Restart</a>
             <a href="./index.html">Back To Title</a>
