@@ -281,7 +281,7 @@ function pauseLoop() {
 /////////////////////////////////////////////////
 async function postData(data) {
   const url =
-    "https://script.google.com/macros/s/AKfycbxOJuacVHz2kuKrUCY0u36usEUlA1NCFobKmqIyPcBY0FOnWPcknnmGJTvyBDebm32rMQ/exec";
+    "https://script.google.com/macros/s/AKfycbyaY8lg8Ba_0oh3I5Q-X6HReYwStOwIYVhOjBK-zk1bvhWs9BKL2bi17-GEpvjUI5pyhA/exec";
   let res = await fetch(url, {
     method: "POST",
     body: JSON.stringify(data),
